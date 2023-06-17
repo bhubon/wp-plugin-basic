@@ -18,10 +18,23 @@ if (!defined('ABSPATH')) {
  * The main plugin class
  */
 
-final class WeDevsAcademy
-{
-    function __construct()
-    {
+final class WeDevsAcademy {
+
+    /**
+     * Plugin Version
+     * @return string
+     */
+    const version = '1.0';
+
+    /**
+     * Class Constructor
+     */
+    private function __construct() {
+        $this->define_constants();
+
+        register_activation_hook(__FILE__, [$this, 'activate']);
+
+        add_action('plugins_loaded',[$this,'init_plugin']);
     }
 
     /**
@@ -29,8 +42,7 @@ final class WeDevsAcademy
      *
      * @return \WeDevs_Academy
      */
-    public static function init()
-    {
+    public static function init() {
         static $instance = false;
 
         if (!$instance) {
@@ -38,4 +50,46 @@ final class WeDevsAcademy
         }
         return $instance;
     }
+
+    /**
+     * Define the required plugin constants
+     *
+     * @return void
+     */
+    public function define_constants() {
+        define('WD_ACADEMY_VERSION', self::version);
+        define('WD_ACADEMY_FILE', __FILE__);
+        define('WD_ACADEMY_PATH', __DIR__);
+        define('WD_ACADEMY_URL', plugins_url('', WD_ACADEMY_FILE));
+        define('WD_ACADEMY_ASSETS', WD_ACADEMY_URL . '/assets');
+    }
+
+    /**
+     * Run actication hook
+     *
+     * @return void
+     */
+    public function activate() {
+        $installed = get_option('wp_academy_installed');
+
+        if (!$installed) {
+            update_option('wp_academy_installed', time());
+        }
+
+        update_option('wp_academy_version', WD_ACADEMY_VERSION);
+    }
 }
+
+/**
+ * Initializes the main plugin
+ *
+ * @return \wedevs_academy
+ */
+function wedevs_academy() {
+    return WeDevsAcademy::init();
+}
+
+/** 
+ * kick of the plugin
+ */
+wedevs_academy();
