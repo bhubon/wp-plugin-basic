@@ -27,7 +27,7 @@ final class WeDevsAcademy
     /**
      * Initializes a singleton instance
      *
-     * @return WeDevs_Academy
+     * @return \WeDevs_Academy
      */
     public static function init()
     {
