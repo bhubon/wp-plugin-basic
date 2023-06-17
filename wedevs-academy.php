@@ -8,11 +8,15 @@
 * Version: 1.0
 * License: GPL v2 or later
 * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- */
+* Text Domain:wedevs-academy
+* Domain Path:/languages
+*/
 
 if (!defined('ABSPATH')) {
     exit;
 }
+
+require_once __DIR__ . '/vendor/autoload.php';
 
 /**
  * The main plugin class
@@ -34,7 +38,7 @@ final class WeDevsAcademy {
 
         register_activation_hook(__FILE__, [$this, 'activate']);
 
-        add_action('plugins_loaded',[$this,'init_plugin']);
+        add_action('plugins_loaded', [$this, 'init_plugin']);
     }
 
     /**
@@ -65,7 +69,22 @@ final class WeDevsAcademy {
     }
 
     /**
-     * Run actication hook
+     * Initialize the plugin
+     *
+     * @return void
+     */
+    public function init_plugin() {
+        if (is_admin()) {
+            // admin
+            new \WeDevs\Academy\Admin();
+        } else {
+            // frontend
+            new \WeDevs\Academy\Frontend();
+        }
+    }
+
+    /**
+     * Do stuff upon plugin activation
      *
      * @return void
      */

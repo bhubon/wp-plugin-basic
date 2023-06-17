@@ -1,0 +1,20 @@
+{
+    "name": "bhubon2000/wedevs-academy",
+    "description": "A tutorial plugin for weDevs Academy",
+    "type": "wordpres-plugin",
+    "license": "\\GPLv2",
+    "autoload": {
+        "psr-4": {
+            "WeDevs\\Academy\\": "includes/"
+        }
+    },
+    "files": [],
+    "authors": [
+        {
+            "name": "Bhubon Sutradhar Nil",
+            "email": "54433969+bhubon@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
