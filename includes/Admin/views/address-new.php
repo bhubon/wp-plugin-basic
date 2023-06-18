@@ -1,6 +1,6 @@
 <div class="wrap">
     <h1 class="wp-heading-inline"><?php _e('New Address', 'wedevs-academy'); ?></h1>
-
+    <?php var_dump($this->error); ?>
     <form action="" method="POST">
         <table class="form-table">
             <tbody>
