@@ -6,9 +6,11 @@
     "autoload": {
         "psr-4": {
             "WeDevs\\Academy\\": "includes/"
-        }
+        },
+        "files": [
+            "includes/functions.php"
+        ]
     },
-    "files": [],
     "authors": [
         {
             "name": "Bhubon Sutradhar Nil",

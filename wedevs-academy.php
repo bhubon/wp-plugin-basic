@@ -22,7 +22,8 @@ require_once __DIR__ . '/vendor/autoload.php';
  * The main plugin class
  */
 
-final class WeDevsAcademy {
+final class WeDevsAcademy
+{
 
     /**
      * Plugin Version
@@ -33,7 +34,8 @@ final class WeDevsAcademy {
     /**
      * Class Constructor
      */
-    private function __construct() {
+    private function __construct()
+    {
         $this->define_constants();
 
         register_activation_hook(__FILE__, [$this, 'activate']);
@@ -46,7 +48,8 @@ final class WeDevsAcademy {
      *
      * @return \WeDevs_Academy
      */
-    public static function init() {
+    public static function init()
+    {
         static $instance = false;
 
         if (!$instance) {
@@ -60,7 +63,8 @@ final class WeDevsAcademy {
      *
      * @return void
      */
-    public function define_constants() {
+    public function define_constants()
+    {
         define('WD_ACADEMY_VERSION', self::version);
         define('WD_ACADEMY_FILE', __FILE__);
         define('WD_ACADEMY_PATH', __DIR__);
@@ -73,7 +77,8 @@ final class WeDevsAcademy {
      *
      * @return void
      */
-    public function init_plugin() {
+    public function init_plugin()
+    {
         if (is_admin()) {
             // admin
             new \WeDevs\Academy\Admin();
@@ -88,14 +93,10 @@ final class WeDevsAcademy {
      *
      * @return void
      */
-    public function activate() {
-        $installed = get_option('wp_academy_installed');
-
-        if (!$installed) {
-            update_option('wp_academy_installed', time());
-        }
-
-        update_option('wp_academy_version', WD_ACADEMY_VERSION);
+    public function activate()
+    {
+        $installer = new \WeDevs\Academy\Installer();
+        $installer->run();
     }
 }
 
@@ -104,7 +105,8 @@ final class WeDevsAcademy {
  *
  * @return \wedevs_academy
  */
-function wedevs_academy() {
+function wedevs_academy()
+{
     return WeDevsAcademy::init();
 }
 
