@@ -65,13 +65,10 @@ function wd_ac_get_addresses($args = []) {
     $items = $wpdb->get_results(
         $wpdb->prepare(
             "SELECT * FROM {$wpdb->prefix}ac_addresses
-            ORDER BY %s %s
-            LIMIT %d %d",
-
-            $args['orderby'],
-            $args['order'],
+            ORDER BY {$args['orderby']} {$args['order']}
+            LIMIT %d, %d",
+            $args['offset'],
             $args['number'],
-            $args['offset']
         )
     );
 
