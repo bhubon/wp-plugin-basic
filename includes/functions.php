@@ -6,8 +6,7 @@
  * @param array $args
  * @return int | WP_Error
  */
-function wc_ac_insert_address($args = [])
-{
+function wd_ac_insert_address($args = []) {
     global $wpdb;
 
     if (empty($args['name'])) {
@@ -41,4 +40,51 @@ function wc_ac_insert_address($args = [])
     }
 
     return $wpdb->insert_id;
+}
+
+
+/**
+ * Fetch addreses
+ *
+ * @param array $args
+ * @return void
+ */
+function wd_ac_get_addresses($args = []) {
+
+    global $wpdb;
+
+    $defaults = [
+        'number' => 20,
+        'offset' => 0,
+        'orderby' => 'id',
+        'order' => 'ASC'
+    ];
+
+    $args = wp_parse_args($args, $defaults);
+
+    $items = $wpdb->get_results(
+        $wpdb->prepare(
+            "SELECT * FROM {$wpdb->prefix}ac_addresses
+            ORDER BY %s %s
+            LIMIT %d %d",
+
+            $args['orderby'],
+            $args['order'],
+            $args['number'],
+            $args['offset']
+        )
+    );
+
+    return $items;
+}
+
+/**
+ * Get the count of total address
+ *
+ * @return int
+ */
+function wd_ac_address_count() {
+    global $wpdb;
+
+    return (int) $wpdb->get_var("SELECT count(id) FROM {$wpdb->prefix}ac_addresses");
 }

@@ -74,7 +74,7 @@ class Addressbook
             return;
         }
 
-        $insert_id = wc_ac_insert_address([
+        $insert_id = wd_ac_insert_address([
             'name' => $name,
             'address' => $address,
             'phone' => $phone,
