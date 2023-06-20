@@ -59,7 +59,7 @@ class Address_List extends \WP_List_Table {
 
         return sprintf(
             '<a href="%1$s"><strong>%2$s</strong></a> %3$s',
-            admin_url('admin.php?page=wedevs-academy&action=view&id', $item->id),
+            admin_url('admin.php?page=wedevs-academy&action=view&id='. $item->id),
             $item->name,
             $this->row_actions($actions)
         );
